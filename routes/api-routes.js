@@ -1,4 +1,5 @@
-const db = require("../db/db.json");
+let db = require("../db/db.json");
+const fs = require("fs");
 const router = require("express").Router();
 
 router.get("/api/notes", function (req, res) {
@@ -12,7 +13,7 @@ router.post("/api/notes", function (req, res) {
     text: req.body.text,
   };
   db.push(newNote);
-  fs.writeFileSync("../db/db.json", JSON.stringify(db), function (error) {
+  fs.writeFileSync("./db/db.json", JSON.stringify(db), function (error) {
     if (error) console.log(error);
     res.json(db);
   });
@@ -26,7 +27,7 @@ router.delete("/api/notes/:id", function (req, res) {
     }
   }
   db = notes;
-  fs.writeFileSync("../db/db.json", JSON.stringify(db), function (error) {
+  fs.writeFileSync("./db/db.json", JSON.stringify(db), function (error) {
     if (error) console.log(error);
     res.json(db);
   });
